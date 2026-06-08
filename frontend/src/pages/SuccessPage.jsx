@@ -1,5 +1,5 @@
 import { useSearchParams, useNavigate } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 
 export default function SuccessPage() {
   const [searchParams] = useSearchParams()
@@ -7,13 +7,11 @@ export default function SuccessPage() {
   const paymentId = searchParams.get('payment')
   const station = searchParams.get('station')
   const slot = searchParams.get('slot')
-  const confettiRef = useRef(false)
-
   useEffect(() => {
     if (!paymentId) {
       navigate('/error?reason=invalid')
     }
-  }, [paymentId])
+  }, [paymentId, navigate])
 
   const truncateId = (id) => id ? `...${id.slice(-8)}` : ''
 
@@ -103,7 +101,7 @@ export default function SuccessPage() {
         }}>
           <span style={{ fontSize: '20px', flexShrink: 0 }}>ℹ️</span>
           <p style={{ color: 'var(--text-secondary)', fontSize: '13px', lineHeight: '1.5' }}>
-            Return the power bank to any Watt'Ever station when done. Billing continues until returned.
+            Return the power bank to any Watt&apos;Ever station when done. Billing continues until returned.
           </p>
         </div>
 

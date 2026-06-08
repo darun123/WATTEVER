@@ -18,14 +18,6 @@ export default function RentalPage() {
   const [showModal, setShowModal] = useState(false)
   const [processing, setProcessing] = useState(false)
 
-  useEffect(() => {
-    if (!stationId) {
-      navigate('/error?reason=invalid_qr')
-      return
-    }
-    fetchSlotInfo()
-  }, [stationId])
-
   const fetchSlotInfo = async () => {
     try {
       setLoading(true)
@@ -44,6 +36,18 @@ export default function RentalPage() {
       setLoading(false)
     }
   }
+
+  /* eslint-disable react-hooks/exhaustive-deps, react-hooks/set-state-in-effect */
+  useEffect(() => {
+    if (!stationId) {
+      navigate('/error?reason=invalid_qr')
+      return
+    }
+    fetchSlotInfo()
+  }, [stationId])
+  /* eslint-enable react-hooks/exhaustive-deps, react-hooks/set-state-in-effect */
+
+
 
   const handleProceed = () => {
     setShowModal(true)
@@ -78,6 +82,7 @@ export default function RentalPage() {
       // 3. Open Razorpay checkout
       openRazorpay(order, rental, userDetails)
     } catch (err) {
+      console.error(err)
       toast.error('Something went wrong. Please try again.')
       setProcessing(false)
     }
@@ -88,7 +93,7 @@ export default function RentalPage() {
       key: order.keyId,
       amount: Math.round(order.amount * 100),
       currency: order.currency,
-      name: 'Watt\\'Ever PowerBank',
+      name: "Watt'Ever PowerBank",
       description: `Power Bank Rental — ${slotInfo.stationName}, Slot ${slotInfo.slotNumber}`,
       image: '/logo.svg',
       order_id: order.orderId,
@@ -124,6 +129,7 @@ export default function RentalPage() {
             navigate(`/error?reason=payment_failed`)
           }
         } catch (err) {
+          console.error(err)
           navigate(`/error?reason=payment_failed`)
         }
         setProcessing(false)
@@ -157,7 +163,7 @@ export default function RentalPage() {
             <PowerBankIcon />
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '8px' }}>
-            <span style={{ color: 'var(--primary-light)', fontSize: '13px', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase' }}>Watt'Ever</span>
+            <span style={{ color: 'var(--primary-light)', fontSize: '13px', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase' }}>Watt&apos;Ever</span>
           </div>
           <h1 style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '8px', lineHeight: '1.2' }}>
             PowerBank Rental

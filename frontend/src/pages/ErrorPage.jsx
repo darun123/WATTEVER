@@ -1,4 +1,4 @@
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 const errorMessages = {
   invalid_qr: {
@@ -25,9 +25,7 @@ const errorMessages = {
 
 export default function ErrorPage() {
   const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
   const reason = searchParams.get('reason') || 'invalid'
-  const stationParam = searchParams.get('station')
 
   const error = errorMessages[reason] || errorMessages.invalid
 
@@ -81,7 +79,7 @@ export default function ErrorPage() {
         </div>
 
         <div style={{ marginTop: '24px', color: 'var(--text-muted)', fontSize: '12px' }}>
-          <p>Watt'Ever PowerBank Rental System</p>
+          <p>Watt&apos;Ever PowerBank Rental System</p>
         </div>
       </div>
     </div>
