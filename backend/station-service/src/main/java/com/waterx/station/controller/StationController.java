@@ -17,24 +17,24 @@ public class StationController {
     private final StationService stationService;
 
     @GetMapping("/{stationId}/slot/{slotNumber}")
-    public ResponseEntity<SlotInfoDTO> getSlotInfo(
+    public ResponseEntity<?> getSlotInfo(
             @PathVariable String stationId,
             @PathVariable int slotNumber) {
         try {
             SlotInfoDTO slotInfo = stationService.getSlotInfo(stationId, slotNumber);
             return ResponseEntity.ok(slotInfo);
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 
     @GetMapping("/{stationId}/best-slot")
-    public ResponseEntity<SlotInfoDTO> getBestSlotInfo(@PathVariable String stationId) {
+    public ResponseEntity<?> getBestSlotInfo(@PathVariable String stationId) {
         try {
             SlotInfoDTO slotInfo = stationService.getBestSlotInfo(stationId);
             return ResponseEntity.ok(slotInfo);
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 

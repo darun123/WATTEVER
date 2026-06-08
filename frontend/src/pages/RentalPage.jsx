@@ -35,7 +35,11 @@ export default function RentalPage() {
         navigate(`/error?reason=slot_unavailable&station=${stationId}`)
       }
     } catch (err) {
-      setError('Could not load station info. Please try scanning again.')
+      if (err.response?.data?.error) {
+        setError(err.response.data.error)
+      } else {
+        setError('Could not load station info. Please try scanning again.')
+      }
     } finally {
       setLoading(false)
     }

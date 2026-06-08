@@ -35,10 +35,15 @@ public class StationService {
         
         if (response == null || !response.has("code") || response.get("code").asInt() != 0 || !response.hasNonNull("data")) {
             log.error("Device not found or error from Bajie API for device: {}", deviceId);
-            throw new RuntimeException("Device not found or error from Bajie API: " + deviceId);
+            throw new RuntimeException("Could not find device information. Please check the QR code or try again.");
         }
         
         JsonNode data = response.get("data");
+        if (data.has("posOnlineStatus") && !"online".equalsIgnoreCase(data.get("posOnlineStatus").asText())) {
+            log.warn("Device {} is offline", deviceId);
+            throw new RuntimeException("This station is currently offline. Please try another one.");
+        }
+
         JsonNode priceStrategy = data.get("priceStrategy");
         JsonNode shop = data.get("shop");
 
@@ -72,10 +77,15 @@ public class StationService {
         
         if (response == null || !response.has("code") || response.get("code").asInt() != 0 || !response.hasNonNull("data")) {
             log.error("Device not found or error from Bajie API for device: {}", deviceId);
-            throw new RuntimeException("Device not found or error from Bajie API: " + deviceId);
+            throw new RuntimeException("Could not find device information. Please check the QR code or try again.");
         }
         
         JsonNode data = response.get("data");
+        if (data.has("posOnlineStatus") && !"online".equalsIgnoreCase(data.get("posOnlineStatus").asText())) {
+            log.warn("Device {} is offline", deviceId);
+            throw new RuntimeException("This station is currently offline. Please try another one.");
+        }
+
         JsonNode priceStrategy = data.get("priceStrategy");
         JsonNode shop = data.get("shop");
 
