@@ -71,7 +71,7 @@ public class RentalService {
         session.setStartTime(LocalDateTime.now());
 
         // Create Bajie order
-        String callbackUrl = "https://rich-buckets-yell.loca.lt/api/rentals/bajie-webhook";
+        String callbackUrl = "https://wattever-1.onrender.com/api/rentals/bajie-webhook";
         String tradeNo = bajieApiClient.createRentOrder(session.getStationId(), callbackUrl, session.getSlotNumber());
         if (tradeNo != null) {
             session.setBajieTradeNo(tradeNo);
