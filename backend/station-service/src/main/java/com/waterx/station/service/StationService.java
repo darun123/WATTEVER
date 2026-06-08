@@ -33,6 +33,11 @@ public class StationService {
         // stationId is actually the deviceId in Bajie API
         JsonNode response = bajieApiClient.getCabinetInfo(deviceId);
         
+        if (response != null && response.has("code") && response.get("code").asInt() == 2004) {
+            log.warn("Device {} is offline (Code 2004)", deviceId);
+            throw new RuntimeException("This station is currently offline. Please try another one.");
+        }
+
         if (response == null || !response.has("code") || response.get("code").asInt() != 0 || !response.hasNonNull("data")) {
             log.error("Device not found or error from Bajie API for device: {}", deviceId);
             throw new RuntimeException("Could not find device information. Please check the QR code or try again.");
@@ -75,6 +80,11 @@ public class StationService {
         String deviceId = resolveDeviceId(stationId);
         JsonNode response = bajieApiClient.getCabinetInfo(deviceId);
         
+        if (response != null && response.has("code") && response.get("code").asInt() == 2004) {
+            log.warn("Device {} is offline (Code 2004)", deviceId);
+            throw new RuntimeException("This station is currently offline. Please try another one.");
+        }
+
         if (response == null || !response.has("code") || response.get("code").asInt() != 0 || !response.hasNonNull("data")) {
             log.error("Device not found or error from Bajie API for device: {}", deviceId);
             throw new RuntimeException("Could not find device information. Please check the QR code or try again.");
