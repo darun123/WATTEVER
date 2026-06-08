@@ -42,7 +42,7 @@ export default function PricingCard({ slotInfo }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {[
           { icon: '⚡', text: 'Instant power bank release' },
-          { icon: '🔄', text: 'Return at any WaterX station' },
+          { icon: '🔄', text: 'Return at any Watt\\'Ever station' },
           { icon: '🛡️', text: '100% secure payment' },
         ].map((item, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>

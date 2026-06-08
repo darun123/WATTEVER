@@ -103,7 +103,7 @@ export default function SuccessPage() {
         }}>
           <span style={{ fontSize: '20px', flexShrink: 0 }}>ℹ️</span>
           <p style={{ color: 'var(--text-secondary)', fontSize: '13px', lineHeight: '1.5' }}>
-            Return the power bank to any WaterX station when done. Billing continues until returned.
+            Return the power bank to any Watt'Ever station when done. Billing continues until returned.
           </p>
         </div>
 

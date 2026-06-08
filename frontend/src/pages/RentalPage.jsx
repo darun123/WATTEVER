@@ -88,7 +88,7 @@ export default function RentalPage() {
       key: order.keyId,
       amount: Math.round(order.amount * 100),
       currency: order.currency,
-      name: 'WaterX PowerBank',
+      name: 'Watt\\'Ever PowerBank',
       description: `Power Bank Rental — ${slotInfo.stationName}, Slot ${slotInfo.slotNumber}`,
       image: '/logo.svg',
       order_id: order.orderId,
@@ -157,7 +157,7 @@ export default function RentalPage() {
             <PowerBankIcon />
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '8px' }}>
-            <span style={{ color: 'var(--primary-light)', fontSize: '13px', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase' }}>WaterX</span>
+            <span style={{ color: 'var(--primary-light)', fontSize: '13px', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase' }}>Watt'Ever</span>
           </div>
           <h1 style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '8px', lineHeight: '1.2' }}>
             PowerBank Rental
@@ -200,7 +200,7 @@ export default function RentalPage() {
 
         {/* Footer */}
         <div style={{ textAlign: 'center', marginTop: '28px', color: 'var(--text-muted)', fontSize: '12px' }}>
-          Need help? Contact support@waterx.in
+          Need help? Contact support@wattever.in
         </div>
       </div>
 

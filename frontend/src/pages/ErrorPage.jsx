@@ -60,7 +60,7 @@ export default function ErrorPage() {
             Need help? Contact our support team
           </p>
           <a
-            href="mailto:support@waterx.in"
+            href="mailto:support@wattever.in"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -76,12 +76,12 @@ export default function ErrorPage() {
               transition: 'all 0.2s ease',
             }}
           >
-            ✉️ support@waterx.in
+            ✉️ support@wattever.in
           </a>
         </div>
 
         <div style={{ marginTop: '24px', color: 'var(--text-muted)', fontSize: '12px' }}>
-          <p>WaterX PowerBank Rental System</p>
+          <p>Watt'Ever PowerBank Rental System</p>
         </div>
       </div>
     </div>
