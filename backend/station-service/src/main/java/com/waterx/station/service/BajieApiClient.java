@@ -59,6 +59,10 @@ public class BajieApiClient {
                 JsonNode data = body.get("data");
                 if (data.has("deviceId")) {
                     return data.get("deviceId").asText();
+                } else if (data.has("pcabinetid")) {
+                    return data.get("pcabinetid").asText();
+                } else if (data.has("pCabinetid")) {
+                    return data.get("pCabinetid").asText();
                 }
             }
             log.warn("Could not find deviceId from QR code. Response: {}", body);
