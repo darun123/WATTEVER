@@ -49,6 +49,26 @@ public class BajieApiClient {
         }
     }
 
+    public String getDeviceIdFromQrCode(String qrCode) {
+        String url = baseUrl + "/cabinet/detail/" + qrCode;
+        HttpEntity<String> entity = new HttpEntity<>(createAuthHeaders());
+        try {
+            ResponseEntity<JsonNode> response = restTemplate.exchange(url, HttpMethod.GET, entity, JsonNode.class);
+            JsonNode body = response.getBody();
+            if (body != null && body.has("code") && body.get("code").asInt() == 0 && body.hasNonNull("data")) {
+                JsonNode data = body.get("data");
+                if (data.has("deviceId")) {
+                    return data.get("deviceId").asText();
+                }
+            }
+            log.warn("Could not find deviceId from QR code. Response: {}", body);
+            return null;
+        } catch (Exception e) {
+            log.error("Exception calling Bajie getDeviceIdFromQrCode: {}", e.getMessage());
+            return null;
+        }
+    }
+
     public boolean ejectByRent(String deviceId, String rentOrderId, int slotNum) {
         String url = baseUrl + "/cabinet/ejectByRent?cabinetid=" + deviceId + "&rentOrderId=" + rentOrderId + "&slotNum=" + slotNum + "&slot=" + slotNum;
         HttpEntity<String> entity = new HttpEntity<>(createAuthHeaders());

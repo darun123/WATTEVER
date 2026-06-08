@@ -40,4 +40,7 @@ public class Station {
 
     @Column(name = "release_api_key")
     private String releaseApiKey;
+
+    @Column(name = "qr_code", unique = true)
+    private String qrCode;
 }

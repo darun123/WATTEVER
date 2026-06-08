@@ -3,6 +3,8 @@ package com.waterx.station.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.waterx.station.dto.ReleaseRequest;
 import com.waterx.station.dto.SlotInfoDTO;
+import com.waterx.station.model.Station;
+import com.waterx.station.repository.StationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,14 +17,25 @@ import java.math.BigDecimal;
 public class StationService {
 
     private final BajieApiClient bajieApiClient;
+    private final StationRepository stationRepository;
+
+    private String resolveDeviceId(String inputId) {
+        return stationRepository.findByQrCode(inputId)
+                .map(Station::getStationId)
+                .orElseGet(() -> {
+                    String apiDeviceId = bajieApiClient.getDeviceIdFromQrCode(inputId);
+                    return apiDeviceId != null ? apiDeviceId : inputId;
+                });
+    }
 
     public SlotInfoDTO getSlotInfo(String stationId, int slotNumber) {
+        String deviceId = resolveDeviceId(stationId);
         // stationId is actually the deviceId in Bajie API
-        JsonNode response = bajieApiClient.getCabinetInfo(stationId);
+        JsonNode response = bajieApiClient.getCabinetInfo(deviceId);
         
         if (response == null || !response.has("code") || response.get("code").asInt() != 0 || !response.hasNonNull("data")) {
-            log.error("Device not found or error from Bajie API for device: {}", stationId);
-            throw new RuntimeException("Device not found or error from Bajie API: " + stationId);
+            log.error("Device not found or error from Bajie API for device: {}", deviceId);
+            throw new RuntimeException("Device not found or error from Bajie API: " + deviceId);
         }
         
         JsonNode data = response.get("data");
@@ -42,8 +55,8 @@ public class StationService {
         }
 
         return SlotInfoDTO.builder()
-                .stationId(stationId)
-                .stationName(shop != null && shop.has("name") ? shop.get("name").asText() : "Station " + stationId)
+                .stationId(deviceId)
+                .stationName(shop != null && shop.has("name") ? shop.get("name").asText() : "Station " + deviceId)
                 .location(shop != null && shop.has("address") ? shop.get("address").asText() : "Unknown Location")
                 .slotNumber(slotNumber)
                 .status(status)
@@ -54,11 +67,12 @@ public class StationService {
     }
 
     public SlotInfoDTO getBestSlotInfo(String stationId) {
-        JsonNode response = bajieApiClient.getCabinetInfo(stationId);
+        String deviceId = resolveDeviceId(stationId);
+        JsonNode response = bajieApiClient.getCabinetInfo(deviceId);
         
         if (response == null || !response.has("code") || response.get("code").asInt() != 0 || !response.hasNonNull("data")) {
-            log.error("Device not found or error from Bajie API for device: {}", stationId);
-            throw new RuntimeException("Device not found or error from Bajie API: " + stationId);
+            log.error("Device not found or error from Bajie API for device: {}", deviceId);
+            throw new RuntimeException("Device not found or error from Bajie API: " + deviceId);
         }
         
         JsonNode data = response.get("data");
@@ -80,13 +94,13 @@ public class StationService {
         }
 
         if (bestSlotNumber == -1) {
-            log.error("No available power banks found for device: {}", stationId);
+            log.error("No available power banks found for device: {}", deviceId);
             throw new RuntimeException("No power banks available at this station.");
         }
 
         return SlotInfoDTO.builder()
-                .stationId(stationId)
-                .stationName(shop != null && shop.has("name") ? shop.get("name").asText() : "Station " + stationId)
+                .stationId(deviceId)
+                .stationName(shop != null && shop.has("name") ? shop.get("name").asText() : "Station " + deviceId)
                 .location(shop != null && shop.has("address") ? shop.get("address").asText() : "Unknown Location")
                 .slotNumber(bestSlotNumber)
                 .status("AVAILABLE")
