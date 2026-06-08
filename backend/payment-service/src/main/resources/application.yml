@@ -24,8 +24,8 @@ razorpay:
   key-secret: 7TJcNlF5D4JtgysOkaRo5KkC
 
 services:
-  rental-service-url: http://localhost:8082
-  station-service-url: http://localhost:8081
+  rental-service-url: https://wattever-1.onrender.com
+  station-service-url: https://wattever-2.onrender.com
 
 logging:
   level:
