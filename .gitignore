@@ -1,0 +1,18 @@
+# Node.js
+node_modules/
+dist/
+.env.local
+
+# Java / Spring Boot
+target/
+*.jar
+*.war
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.DS_Store

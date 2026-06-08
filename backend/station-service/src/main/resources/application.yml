@@ -1,0 +1,30 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: station-service
+  datasource:
+    url: jdbc:h2:mem:stationdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+bajie:
+  base-url: https://developer.chargenow.top/cdb-open-api/v1
+  username: DARUN
+  password: DARUN@2026
+
+logging:
+  level:
+    com.waterx: DEBUG
