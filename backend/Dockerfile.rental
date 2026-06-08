@@ -1,0 +1,12 @@
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+WORKDIR /app
+# Copy the parent pom and all source code
+COPY . .
+# Build only the rental-service module and its dependencies
+RUN mvn clean package -pl rental-service -am -DskipTests
+
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+COPY --from=build /app/rental-service/target/*.jar app.jar
+EXPOSE 8082
+ENTRYPOINT ["java", "-jar", "app.jar"]
