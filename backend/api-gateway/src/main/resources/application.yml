@@ -35,6 +35,17 @@ spring:
           uri: https://wattever-3.onrender.com
           predicates:
             - Path=/api/payments/**
+        - id: user-service
+          uri: https://wattever-user.onrender.com
+          predicates:
+            - Path=/api/users/**
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://securetoken.google.com/wattever-131b9
+          jwk-set-uri: https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com
 
 management:
   endpoints:

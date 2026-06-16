@@ -19,9 +19,10 @@
 
     <modules>
         <module>api-gateway</module>
-        <module>station-service</module>
         <module>rental-service</module>
+        <module>station-service</module>
         <module>payment-service</module>
+        <module>user-service</module>
     </modules>
 
     <properties>
