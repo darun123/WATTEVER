@@ -21,8 +21,6 @@ spring:
 
 bajie:
   base-url: https://developer.chargenow.top/cdb-open-api/v1
-  username: DARUN
-  password: DARUN@2026
 
 logging:
   level:
