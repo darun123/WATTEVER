@@ -20,6 +20,8 @@ services:
       - "8081:8081"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - BAJIE_USERNAME=${BAJIE_USERNAME}
+      - BAJIE_PASSWORD=${BAJIE_PASSWORD}
     networks:
       - waterx-net
 
@@ -29,6 +31,8 @@ services:
       - "8082:8082"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - BAJIE_USERNAME=${BAJIE_USERNAME}
+      - BAJIE_PASSWORD=${BAJIE_PASSWORD}
     networks:
       - waterx-net
 

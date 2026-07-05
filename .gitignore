@@ -16,3 +16,6 @@ mvnw.cmd
 *.iml
 .vscode/
 .DS_Store
+
+# Environment Variables
+.env
