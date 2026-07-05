@@ -20,8 +20,8 @@ spring:
       path: /h2-console
 
 razorpay:
-  key-id: rzp_test_SxQq74CtwDVnCJ
-  key-secret: 7TJcNlF5D4JtgysOkaRo5KkC
+  key-id: ${RAZORPAY_KEY_ID:YOUR_RAZORPAY_KEY_ID}
+  key-secret: ${RAZORPAY_KEY_SECRET:YOUR_RAZORPAY_KEY_SECRET}
 
 services:
   rental-service-url: https://wattever-1.onrender.com
